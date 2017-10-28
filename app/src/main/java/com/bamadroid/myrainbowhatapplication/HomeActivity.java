@@ -25,15 +25,16 @@ public class HomeActivity extends AppCompatActivity {
     private ButtonInputDriver mButtonInputDriverA;
     private ButtonInputDriver mButtonInputDriverB;
     private ButtonInputDriver mButtonInputDriverC;
-    private Button mFirstButton;
+    private Button mbuzzerButton;
+    private Button mPowerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mFirstButton = (Button) this.findViewById(R.id.firstButton);
-        mFirstButton.setOnClickListener(new View.OnClickListener() {
+        mbuzzerButton = (Button) this.findViewById(R.id.firstButton);
+        mbuzzerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -41,6 +42,14 @@ public class HomeActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        mPowerButton = (Button) findViewById(R.id.powerButton);
+        mPowerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                powerOff();
             }
         });
 
@@ -226,6 +235,14 @@ public class HomeActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void powerOff() {
+        try {
+            Runtime.getRuntime().exec("reboot -p");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
